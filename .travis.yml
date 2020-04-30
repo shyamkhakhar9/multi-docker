@@ -7,18 +7,18 @@ services:
   - docker
 
 before_install:
-  - docker build -t shyam/multi-docker-test -f ./client/Dockerfile.dev ./client
+  - docker build -t shyamkhakhar/multi-docker-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true shyam/multi-docker-test npm test
+  - docker run -e CI=true shyamkhakhar/multi-docker-test npm test
 
 after_success:
-  - docker build -t shyam/multi-client ./client
-  - docker build -t shyam/multi-nginx ./nginx
-  - docker build -t shyam/multi-server ./server
-  - docker build -t shyam/multi-worker ./worker
+  - docker build -t shyamkhakhar/multi-client ./client
+  - docker build -t shyamkhakhar/multi-nginx ./nginx
+  - docker build -t shyamkhakhar/multi-server ./server
+  - docker build -t shyamkhakhar/multi-worker ./worker
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push shyam/multi-client
-  - docker push shyam/multi-server
-  - docker push shyam/multi-nginx
-  - docker push shyam/multi-worker
+  - docker push shyamkhakhar/multi-client
+  - docker push shyamkhakhar/multi-server
+  - docker push shyamkhakhar/multi-nginx
+  - docker push shyamkhakhar/multi-worker
