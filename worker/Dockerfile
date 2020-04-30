@@ -1,4 +1,4 @@
-ROM node:alpine
+FROM node:alpine
 WORKDIR '/app/checkpoint'
 COPY ./package.json ./
 RUN npm install
