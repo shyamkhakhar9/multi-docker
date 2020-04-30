@@ -7,22 +7,17 @@ services:
   - docker
 
 before_install:
-  # building image for testing
   - docker build -t shyam/multi-docker-test -f ./client/Dockerfile.dev ./client
 
 script:
-  # test
   - docker run -e CI=true shyam/docker-react npm run test
 
 after_success:
-  # building image for production
   - docker build -t shyam/multi-client ./client
   - docker build -t shyam/multi-nginx ./nginx
   - docker build -t shyam/multi-server ./server
   - docker build -t shyam/multi-worker ./worker
-  # Login to docker cli
-  echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # pushing image to DockerHub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push shyam/multi-client
   - docker push shyam/multi-server
   - docker push shyam/multi-nginx
